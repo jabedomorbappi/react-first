@@ -1,53 +1,34 @@
+import PropTypes from 'prop-types';
 import Bookrow from "./Bookrow";
 
-// 1. Define your data array outside the component
-const Books = [
-    {
-        id: 1,
-        title: "To Kill a Mockingbird",
-        author: "Harper Lee",
-        featured: false
-    },
-    {
-        id: 2,
-        title: "1984",
-        author: "George Orwell",
-        featured: true
-    },
-    {
-        id: 3,
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        featured: false
-    },
-    {
-        id: 4,
-        title: "Pride and Prejudice",
-        author: "Jane Austen",
-        featured: true
-    },
-    {
-        id: 5,
-        title: "The Catcher in the Rye",
-        author: "J.D. Salinger",
-        featured: false
-    }
-];
+function Booklist({ searchTerm, books }) {
 
-function Booklist() {
-    return (
-        <ul>
-            {
-                Books.map((book) => (
-                    <li key={book.id} >
-                        <Bookrow book={book} />
-                    </li>
-                ))
-            }
-            
-        </ul>
-    );
+    const row=[]
+
+books.forEach((book) => {
+    if (book.title.toLowerCase().indexOf(searchTerm.toLowerCase())==-1)
+    {
+        return ;
+    }
+    row.push(<Bookrow book={book} key={book.id}/>)
+
+    })
+
+
+  return (
+   <div className="grid grid-cols-1 gap-4">
+      {row}
+    </div>
+    
+
+    )
+
 }
 
-// 2. Only export the component (or move Books to its own file if you need to export it separately)
+
+Booklist.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired
+};
+
 export default Booklist;
